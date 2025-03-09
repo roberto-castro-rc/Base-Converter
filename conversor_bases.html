@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base Converter</title>
+	<script>
+		function conversor(){
+			var decimal = Number(document.getElementById("decimal").value);
+			var base = Number(document.getElementById("base").value);
+			var resultado = [];
+			if (base < 2 || base > 36){
+				document.getElementById("resultado").innerHTML = "Base inválida";
+				return;
+			}
+			var digitos = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";  //0-9 e A-Z
+			if (decimal < base){
+				resultado.push(digitos[decimal]);
+			}else{
+				while (decimal >= base){
+					let resto = decimal % base;
+					resultado.push(digitos[resto]);
+
+					decimal = Math.floor(decimal / base); //arrendondar para baixo
+				}
+				resultado.push(decimal); //último valor
+				resultado.reverse(); //inverter a ordem
+			}
+
+			document.getElementById("resultado").innerHTML =
+			`Resultado utilizando a base ${base} foi: <i style="color: green;">${resultado.join("")}</i>`;
+		}
+	</script>
+</head>
+<body>
+	<div style="width: 50%; margin: auto; text-align: center;">
+		Digite um número em decimal:
+		<input type="text"  id="decimal" >
+		<br> <br>
+		Digite a base para conversão:
+		<input type="text"  id="base">
+		<br><br>
+		<button onclick="conversor()">Converter</button>
+	</div>
+<b><p id="resultado"></p> </b>
+</body>
+</html>
+
